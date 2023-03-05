@@ -12,7 +12,7 @@ class Database {
      public function __construct()
     {
         // data source name
-        $dsn = 'mysql:host=' . $this->host . ';dbname' . $this->db_name;
+        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->db_name;
 
         
         $option = [
@@ -28,7 +28,7 @@ class Database {
 
     }
 
-     public function query ($query)
+     public function query($query)
      {
         $this->stmt = $this->dbh->prepare($query);
      }
@@ -36,13 +36,14 @@ class Database {
 
      public function bind($param, $value, $type = null)
      {
-        if (is_null($type)) {
+        if ( is_null($type) ) {
             switch( true ) {
                 case is_int($value) :
                     $type = PDO::PARAM_INT;
                     break;
                 case is_bool($value) :
                     $type = PDO::PARAM_BOOL;
+                    break;
                 case is_null($value) :
                     $type = PDO::PARAM_NULL;
                     break;
